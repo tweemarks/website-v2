@@ -1,0 +1,4 @@
+Features to implement:
+
+search
+edit category name

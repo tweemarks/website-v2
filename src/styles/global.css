@@ -1,0 +1,205 @@
+/* importing fonts  */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300&family=PT+Sans&family=Poppins:wght@300&family=Ubuntu:wght@300&display=swap");
+
+/* styles for all elements  */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* declaring and assigning variables  */
+:root {
+  --background-color: #e6eaf6;
+  --right-bgcolor: #f8f9fd;
+  --button-bgcolor: #333;
+  --twitter-blue: #1da1f2;
+  --left-percentage: 25%;
+}
+
+body {
+  background-color: var(--background-color);
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  width: 100vw;
+  height: 100vh;
+}
+
+.container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  border-radius: 20px;
+}
+
+.left {
+  background-color: #fff;
+  width: var(--left-percentage);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.right {
+  background-color: var(--right-bgcolor);
+  width: calc(100% - var(--left-percentage));
+  height: 100%;
+  overflow-y: auto;
+}
+.right::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+}
+
+.comp-info {
+  width: 100%;
+  margin: 10px 0 0px 0;
+  padding: 15px 20px;
+  font-family: "Poppins", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pfp {
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.hr {
+  width: 70%;
+  border-top: 1px solid gray;
+}
+
+.buttons {
+  margin: 20px;
+  padding: 10px 20px;
+  width: 100%;
+}
+
+.buttons button {
+  background-color: var(--button-bgcolor);
+  color: #fff;
+  margin: 5px 5px 10px 5px;
+  height: 40px;
+  width: 100%;
+  border: 0;
+  border-radius: 15px;
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.buttons button.active {
+  background-color: transparent;
+  color: var(--button-bgcolor);
+  border: 1px solid var(--button-bgcolor);
+}
+
+.buttons button:focus {
+  outline: none;
+}
+
+.buttons button:active {
+  transform: scale(0.98);
+}
+
+.profile {
+  margin-top: 10px;
+  width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile .image {
+  margin: 0 15px 0 0;
+}
+
+.right {
+  position: relative;
+  /* text-align: center; */
+  display: flex;
+  font-size: 20px;
+  font-weight: 550;
+  display: flex;
+  flex-direction: column;
+}
+
+.logout {
+  color: rgb(238, 84, 84);
+  font-weight: 550;
+  border: none;
+  background-color: transparent;
+  font-size: 20px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.logout:focus {
+  outline: none;
+}
+
+.logout:active {
+  transform: scale(0.98);
+}
+
+.login {
+  background-color: var(--twitter-blue);
+  color: #fff;
+  font-family: inherit;
+  font-size: 20px;
+  font-weight: 550;
+  width: auto;
+  padding: 4px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login:focus {
+  outline: none;
+}
+
+.login:active {
+  transform: scale(0.98);
+}
+
+.rightNav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 20px;
+}
+
+.prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+i {
+  margin-right: 5px;
+}
+
+.HiddenLink,
+.HiddenLink:hover,
+.HiddenLink:focus,
+.HiddenLink:active {
+  text-decoration: none;
+  color: inherit;
+}
+
+.HiddenLink {
+  color: inherit; /* blue colors for links too */
+  text-decoration: inherit; /* no underline */
+}

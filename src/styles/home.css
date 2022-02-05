@@ -1,0 +1,57 @@
+.rightMain {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rightMain .footer {
+  font-family: "PT Sans", sans-serif;
+  margin: 20px 0px;
+}
+
+.token {
+  margin-top: 50px;
+  display: none;
+}
+
+.tokenBtn {
+  padding: 5px 10px;
+  font-family: "Poppins", sans-serif;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: 550;
+  border-radius: 6px;
+  border: 0;
+  color: #fff;
+  background-color: rgb(73, 149, 184);
+}
+
+.tokenDiv {
+  display: none;
+}
+
+.tokenDiv input {
+  padding: 5px 10px;
+  font-family: "courier", sans-serif;
+  margin: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  border: 0;
+  width: 350px;
+}
+
+.tokenDiv input:focus,
+.tokenDiv input:active {
+  outline: none;
+}
+
+.tokenBtn:focus {
+  outline: none;
+}
+
+.tokenBtn:active {
+  transform: scale(0.98);
+}
