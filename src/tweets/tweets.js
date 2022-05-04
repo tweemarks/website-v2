@@ -1,10 +1,10 @@
 //importing libraries
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js'
 import {
   getAuth,
   signInWithPopup,
   TwitterAuthProvider,
-} from "https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"
+} from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js'
 import {
   getFirestore,
   collection,
@@ -16,17 +16,17 @@ import {
   deleteDoc,
   updateDoc,
   deleteField,
-} from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js"
+} from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js'
 
 //firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyDBcrOw2M0fPWVsNM0KX31AlTOGWBuTUlE",
-  authDomain: "tweemarks-2021.firebaseapp.com",
-  projectId: "tweemarks-2021",
-  storageBucket: "tweemarks-2021.appspot.com",
-  messagingSenderId: "318179878664",
-  appId: "1:318179878664:web:ac5195ecffe028def02ebd",
-  measurementId: "G-DB5K82Z30X",
+  apiKey: 'AIzaSyDBcrOw2M0fPWVsNM0KX31AlTOGWBuTUlE',
+  authDomain: 'tweemarks-2021.firebaseapp.com',
+  projectId: 'tweemarks-2021',
+  storageBucket: 'tweemarks-2021.appspot.com',
+  messagingSenderId: '318179878664',
+  appId: '1:318179878664:web:ac5195ecffe028def02ebd',
+  measurementId: 'G-DB5K82Z30X',
 }
 
 // initializing firebase variables
@@ -35,7 +35,7 @@ const auth = getAuth()
 const provider = new TwitterAuthProvider()
 const db = getFirestore()
 
-auth.languageCode = "it"
+auth.languageCode = 'it'
 
 //local variables
 let cred,
@@ -47,36 +47,36 @@ let cred,
 // docRef = reference to the document where user data is stored
 
 // DOM variables
-const DOMrightNav = document.querySelector(".rightNav")
-const DOMrightPrompt = document.querySelector(".prompt")
-const DOMrightTweets = document.querySelector(".rightTweets")
-const DOMtitle = document.querySelector(".title")
+const DOMrightNav = document.querySelector('.rightNav')
+const DOMrightPrompt = document.querySelector('.prompt')
+const DOMrightTweets = document.querySelector('.rightTweets')
+const DOMtitle = document.querySelector('.title')
 
 //window onload get category
 window.onload = function () {
   let url = window.location.href,
-    params = url.split("?")[1].split("&"),
+    params = url.split('?')[1].split('&'),
     data = {},
     tmp
   for (var i = 0, l = params.length; i < l; i++) {
-    tmp = params[i].split("=")
+    tmp = params[i].split('=')
     data[tmp[0]] = tmp[1]
   }
   category = decodeURIComponent(data.category)
 }
 
 // on auth state change programs
-auth.onAuthStateChanged((user) => {
+auth.onAuthStateChanged(user => {
   if (user) {
     //set user credentials
     cred = user
 
     // set docRef
-    docRef = doc(db, "users", cred.uid)
+    docRef = doc(db, 'users', cred.uid)
     setInnerHTMnullL(DOMrightNav)
     statusLoggedIn()
   } else {
-    window.location.href = "../"
+    window.location.href = '../'
   }
 })
 
@@ -88,14 +88,14 @@ function statusLoggedIn() {
   if (category) {
     loadTweets(category)
   } else {
-    window.location.href = "../categories/"
+    window.location.href = '../categories/'
   }
 }
 
 // set profile image and name
 function setProfile() {
-  const profile = document.querySelector(".profile")
-  const pfpURL = cred.photoURL.replace("_normal", "")
+  const profile = document.querySelector('.profile')
+  const pfpURL = cred.photoURL.replace('_normal', '')
   profile.innerHTML = `
         <div class="image">
         <img src="${pfpURL}" alt="pfp" class="pfp">
@@ -110,7 +110,7 @@ function setProfile() {
 
 // set category button
 function setCategoryButton() {
-  document.querySelector(".buttons").innerHTML = `
+  document.querySelector('.buttons').innerHTML = `
         <div>
         <a class='HiddenLink' href='../categories/'>
             <button class="categoryLoadingButton" >Categories</button>
@@ -134,8 +134,8 @@ function addLogoutButton() {
     `
 
   // twitter logout
-  const DOMlogoutButton = document.querySelector("#logOut")
-  DOMlogoutButton.addEventListener("click", () => {
+  const DOMlogoutButton = document.querySelector('#logOut')
+  DOMlogoutButton.addEventListener('click', () => {
     auth.signOut()
     window.location.reload()
   })
@@ -177,7 +177,7 @@ function loadTweets(id) {
         </div>
     `
 
-  getDoc(docRef).then((docSnap) => {
+  getDoc(docRef).then(docSnap => {
     if (docSnap.exists() && !isEmpty(docSnap.data()) && docSnap.data()[id]) {
       let tweetsIDs = docSnap.data()[id]
       // console.log(tweetsIDs)
@@ -185,19 +185,19 @@ function loadTweets(id) {
         currentTweets = tweetsIDs
         loadTweetsInfo(tweetsIDs)
       } else {
-        document.querySelector(".tweetsLoader").style.display = "none"
-        DOMrightTweets.innerHTML += "No any Tweets"
+        document.querySelector('.tweetsLoader').style.display = 'none'
+        DOMrightTweets.innerHTML += 'No any Tweets'
       }
 
       initButtons()
     } else {
-      window.location.href = "../categories/"
+      window.location.href = '../categories/'
     }
   })
 
   category = id
   setInnerHTMnullL(DOMrightPrompt)
-  DOMtitle.style.display = "flex"
+  DOMtitle.style.display = 'flex'
   DOMtitle.innerHTML = `
     <h2>${id}</h2>
     `
@@ -205,51 +205,51 @@ function loadTweets(id) {
 }
 
 function loadTweetsInfo(ids) {
-  let tweetsIDs = ""
-  ids.forEach((id) => {
+  let tweetsIDs = ''
+  ids.forEach(id => {
     tweetsIDs += id
-    tweetsIDs += ","
+    tweetsIDs += ','
   })
   tweetsIDs = tweetsIDs.substring(0, tweetsIDs.length - 1)
   // console.log('tweetIDs: ', tweetsIDs)
   let tweets
   var myHeaders = new Headers()
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded")
+  myHeaders.append('Content-Type', 'application/x-www-form-urlencoded')
 
   var urlencoded = new URLSearchParams()
-  urlencoded.append("id", tweetsIDs)
+  urlencoded.append('id', tweetsIDs)
 
   var requestOptions = {
-    method: "POST",
+    method: 'POST',
     headers: myHeaders,
     body: urlencoded,
-    redirect: "follow",
+    redirect: 'follow',
   }
 
-  fetch("/getTweets/", requestOptions)
-    .then((response) => response.text())
-    .then((result) => {
+  fetch('/getTweets/', requestOptions)
+    .then(response => response.text())
+    .then(result => {
       // console.log(typeof result)
       result = JSON.parse(result)
       // console.log(result)
-      result.forEach((tweet) => loadDOMtweets(tweet))
+      result.forEach(tweet => loadDOMtweets(tweet))
     })
-    .catch((error) => console.log("error", error))
+    .catch(error => console.log('error', error))
 
   initButtons()
 }
 
 function loadDOMtweets(tweetINFO) {
-  document.querySelector(".tweetsLoader").style.display = "none"
+  document.querySelector('.tweetsLoader').style.display = 'none'
   let tweetText = tweetINFO.full_text
 
-  while (tweetText.includes("\n")) {
-    tweetText = tweetText.replace("\n", `<br />`)
+  while (tweetText.includes('\n')) {
+    tweetText = tweetText.replace('\n', `<br />`)
   }
 
   const userPutLinks = []
   const userPutLinksOriginal = []
-  tweetINFO.entities.urls.forEach((urlContent) => {
+  tweetINFO.entities.urls.forEach(urlContent => {
     userPutLinks.push(urlContent.url)
     userPutLinksOriginal.push(urlContent.display_url)
   })
@@ -261,8 +261,8 @@ function loadDOMtweets(tweetINFO) {
   const userPutMedia = []
   let mediaHTML = ``
   if (tweetINFO.entities.media) {
-    tweetINFO.entities.media.forEach((mediaContent) => {
-      tweetText = tweetText.replace(mediaContent.url, "")
+    tweetINFO.entities.media.forEach(mediaContent => {
+      tweetText = tweetText.replace(mediaContent.url, '')
       mediaHTML = `
                 <img src='${mediaContent.media_url_https}' style="width: auto;max-width: 100%; border-radius: 12px; max-height: 300px" />
             `
@@ -270,8 +270,8 @@ function loadDOMtweets(tweetINFO) {
   }
 
   const profileURL = tweetINFO.user.profile_image_url_https.replace(
-    "_normal",
-    ""
+    '_normal',
+    ''
   )
 
   DOMrightTweets.innerHTML += `
@@ -307,42 +307,42 @@ function loadDOMtweets(tweetINFO) {
 }
 
 function initButtons() {
-  document.querySelector(".addTweet").addEventListener("click", addTweet)
+  document.querySelector('.addTweet').addEventListener('click', addTweet)
   document
-    .querySelector(".deleteCategory")
-    .addEventListener("click", deleteCategory)
+    .querySelector('.deleteCategory')
+    .addEventListener('click', deleteCategory)
   document
-    .querySelector(".searchTweetsInput")
-    .addEventListener("keyup", searchWithinTweets)
+    .querySelector('.searchTweetsInput')
+    .addEventListener('keyup', searchWithinTweets)
 
-  const searchContainer = document.querySelector(".search-container")
-  document.querySelector(".searchTweetsBtn").addEventListener("click", () => {
-    searchContainer.classList.toggle("active")
-    if (searchContainer.classList.contains("active")) {
-      searchContainer.querySelector("input").focus()
+  const searchContainer = document.querySelector('.search-container')
+  document.querySelector('.searchTweetsBtn').addEventListener('click', () => {
+    searchContainer.classList.toggle('active')
+    if (searchContainer.classList.contains('active')) {
+      searchContainer.querySelector('input').focus()
     }
-    document.querySelector(".searchTweetsInput").value = ""
+    document.querySelector('.searchTweetsInput').value = ''
     searchWithinTweets()
   })
 
   document
-    .querySelector(".editTweets")
-    .addEventListener("click", editTweetsInit)
+    .querySelector('.editTweets')
+    .addEventListener('click', editTweetsInit)
   document
-    .querySelector(".deleteTweets")
-    .addEventListener("click", deleteSelectedTweets)
+    .querySelector('.deleteTweets')
+    .addEventListener('click', deleteSelectedTweets)
   document
-    .querySelector(".shareTweets")
-    .addEventListener("click", shareSelectedTweets)
+    .querySelector('.shareTweets')
+    .addEventListener('click', shareSelectedTweets)
   document
-    .querySelector(".editCategory")
-    .addEventListener("click", editCategory)
+    .querySelector('.editCategory')
+    .addEventListener('click', editCategory)
 
   initCheckBoxes()
 }
 
 function editCategory() {
-  document.querySelectorAll(".promptCategory").forEach((el) => el.remove())
+  document.querySelectorAll('.promptCategory').forEach(el => el.remove())
 
   DOMrightPrompt.innerHTML = `
     <div class="prompt promptCategory">
@@ -358,16 +358,16 @@ function editCategory() {
     </div>
     `
 
-  document.getElementById("editCategoryBox").focus()
-  document.querySelector(".closeCategory").addEventListener("click", () => {
-    document.querySelectorAll(".promptCategory").forEach((el) => el.remove())
+  document.getElementById('editCategoryBox').focus()
+  document.querySelector('.closeCategory').addEventListener('click', () => {
+    document.querySelectorAll('.promptCategory').forEach(el => el.remove())
   })
   // document.querySelector('.addTweet').addEventListener('click', addTweet)
-  document.getElementById("editCategoryBtn").addEventListener("click", () => {
-    if (document.getElementById("editCategoryBox").value) {
-      const categoryName = document.getElementById("editCategoryBox").value
+  document.getElementById('editCategoryBtn').addEventListener('click', () => {
+    if (document.getElementById('editCategoryBox').value) {
+      const categoryName = document.getElementById('editCategoryBox').value
 
-      document.querySelectorAll(".promptCategory").forEach((el) => el.remove())
+      document.querySelectorAll('.promptCategory').forEach(el => el.remove())
 
       //create new category
       setDoc(
@@ -383,7 +383,7 @@ function editCategory() {
         updateDoc(docRef, {
           [category]: deleteField(),
         }).then(() => {
-          window.location.href = "../categories/"
+          window.location.href = '../categories/'
         })
       })
     }
@@ -392,10 +392,10 @@ function editCategory() {
 
 function deleteSelectedTweets() {
   let selectedTweets = []
-  document.querySelectorAll(".tweetCheck").forEach((checkbox) => {
+  document.querySelectorAll('.tweetCheck').forEach(checkbox => {
     if (checkbox.checked) {
-      if (checkbox.getAttribute("id")) {
-        selectedTweets.push(checkbox.getAttribute("id"))
+      if (checkbox.getAttribute('id')) {
+        selectedTweets.push(checkbox.getAttribute('id'))
       }
     }
   })
@@ -405,7 +405,7 @@ function deleteSelectedTweets() {
   )
 
   if (confirmTweets) {
-    let leftOverTweets = currentTweets.filter((id) => {
+    let leftOverTweets = currentTweets.filter(id => {
       if (!selectedTweets.includes(id)) {
         return id
       }
@@ -423,31 +423,37 @@ function deleteSelectedTweets() {
     })
   }
 
-  const editBtnIcon = document.querySelector(".editTweets").querySelector("i")
-  editBtnIcon.classList.remove("fa-close")
-  editBtnIcon.classList.add("fa-edit")
+  const editBtnIcon = document.querySelector('.editTweets').querySelector('i')
+  editBtnIcon.classList.remove('fa-close')
+  editBtnIcon.classList.add('fa-edit')
   document
-    .querySelectorAll(".tweetCheckContainer")
-    .forEach((checkboxContainer) => {
-      checkboxContainer.style.display = "none"
-      checkboxContainer.querySelector("input").checked = false
+    .querySelectorAll('.tweetCheckContainer')
+    .forEach(checkboxContainer => {
+      checkboxContainer.style.display = 'none'
+      checkboxContainer.querySelector('input').checked = false
     })
-  document.querySelector(".deleteTweets").style.display = "none"
-  document.querySelector(".shareTweets").style.display = "none"
+  document.querySelector('.deleteTweets').style.display = 'none'
+  document.querySelector('.shareTweets').style.display = 'none'
 }
 
 async function shareSelectedTweets() {
   let selectedTweetURLs = []
-  document.querySelectorAll(".tweetCheck").forEach((checkbox) => {
+  document.querySelectorAll('.tweetCheck').forEach(checkbox => {
     if (checkbox.checked) {
-      selectedTweetURLs.push(checkbox.getAttribute("url"))
+      selectedTweetURLs.push(checkbox.getAttribute('url'))
     }
+  })
+
+  shareableText = ``
+  selectedTweetURLs.forEach(tweetLink => {
+    shareableText += tweetLink
+    shareableText += '\n'
   })
 
   let shareText = {
     title: category,
     text: `Tweet's links`,
-    url: selectedTweetURLs,
+    url: shareableText,
   }
 
   try {
@@ -457,35 +463,35 @@ async function shareSelectedTweets() {
     console.log(e)
   }
 
-  const editBtnIcon = document.querySelector(".editTweets").querySelector("i")
-  editBtnIcon.classList.remove("fa-close")
-  editBtnIcon.classList.add("fa-edit")
+  const editBtnIcon = document.querySelector('.editTweets').querySelector('i')
+  editBtnIcon.classList.remove('fa-close')
+  editBtnIcon.classList.add('fa-edit')
   document
-    .querySelectorAll(".tweetCheckContainer")
-    .forEach((checkboxContainer) => {
-      checkboxContainer.style.display = "none"
-      checkboxContainer.querySelector("input").checked = false
+    .querySelectorAll('.tweetCheckContainer')
+    .forEach(checkboxContainer => {
+      checkboxContainer.style.display = 'none'
+      checkboxContainer.querySelector('input').checked = false
     })
-  document.querySelector(".deleteTweets").style.display = "none"
-  document.querySelector(".shareTweets").style.display = "none"
+  document.querySelector('.deleteTweets').style.display = 'none'
+  document.querySelector('.shareTweets').style.display = 'none'
 }
 
 function initCheckBoxes() {
-  document.querySelectorAll(".tweetCheck").forEach((checkbox) => {
-    checkbox.addEventListener("change", (e) => {
+  document.querySelectorAll('.tweetCheck').forEach(checkbox => {
+    checkbox.addEventListener('change', e => {
       if (e.currentTarget.checked) {
-        document.querySelector(".deleteTweets").style.display = "inline"
-        document.querySelector(".shareTweets").style.display = "inline"
+        document.querySelector('.deleteTweets').style.display = 'inline'
+        document.querySelector('.shareTweets').style.display = 'inline'
       } else {
         let temp = 0
-        document.querySelectorAll(".tweetCheck").forEach((checkbox) => {
+        document.querySelectorAll('.tweetCheck').forEach(checkbox => {
           if (checkbox.checked) {
             temp = 1
           }
         })
         if (temp === 0) {
-          document.querySelector(".deleteTweets").style.display = "none"
-          document.querySelector(".shareTweets").style.display = "none"
+          document.querySelector('.deleteTweets').style.display = 'none'
+          document.querySelector('.shareTweets').style.display = 'none'
         }
       }
     })
@@ -493,51 +499,51 @@ function initCheckBoxes() {
 }
 
 function editTweetsInit() {
-  const editBtnIcon = document.querySelector(".editTweets").querySelector("i")
-  if (editBtnIcon.classList.contains("fa-edit")) {
-    editBtnIcon.classList.remove("fa-edit")
-    editBtnIcon.classList.add("fa-close")
+  const editBtnIcon = document.querySelector('.editTweets').querySelector('i')
+  if (editBtnIcon.classList.contains('fa-edit')) {
+    editBtnIcon.classList.remove('fa-edit')
+    editBtnIcon.classList.add('fa-close')
     document
-      .querySelectorAll(".tweetCheckContainer")
-      .forEach((checkboxContainer) => {
-        checkboxContainer.style.display = "block"
+      .querySelectorAll('.tweetCheckContainer')
+      .forEach(checkboxContainer => {
+        checkboxContainer.style.display = 'block'
       })
   } else {
-    editBtnIcon.classList.remove("fa-close")
-    editBtnIcon.classList.add("fa-edit")
+    editBtnIcon.classList.remove('fa-close')
+    editBtnIcon.classList.add('fa-edit')
     document
-      .querySelectorAll(".tweetCheckContainer")
-      .forEach((checkboxContainer) => {
-        checkboxContainer.style.display = "none"
-        checkboxContainer.querySelector("input").checked = false
+      .querySelectorAll('.tweetCheckContainer')
+      .forEach(checkboxContainer => {
+        checkboxContainer.style.display = 'none'
+        checkboxContainer.querySelector('input').checked = false
       })
-    document.querySelector(".deleteTweets").style.display = "none"
-    document.querySelector(".shareTweets").style.display = "none"
+    document.querySelector('.deleteTweets').style.display = 'none'
+    document.querySelector('.shareTweets').style.display = 'none'
   }
 }
 
 function searchWithinTweets() {
   const searchTxt = document
-    .querySelector(".searchTweetsInput")
+    .querySelector('.searchTweetsInput')
     .value.toLowerCase()
 
-  const AllTweetContainers = document.querySelectorAll(".TWEETcontainer")
+  const AllTweetContainers = document.querySelectorAll('.TWEETcontainer')
 
-  AllTweetContainers.forEach((tweetContainer) => {
-    tweetContainer.style.display = "flex"
+  AllTweetContainers.forEach(tweetContainer => {
+    tweetContainer.style.display = 'flex'
   })
 
-  if (searchTxt === "") {
+  if (searchTxt === '') {
   } else {
-    AllTweetContainers.forEach((tweetContainer) => {
+    AllTweetContainers.forEach(tweetContainer => {
       const displayName = tweetContainer
-        .querySelector(".TWEETdisplayName")
+        .querySelector('.TWEETdisplayName')
         .textContent.toLowerCase()
       const username = tweetContainer
-        .querySelector(".TWEETusername")
+        .querySelector('.TWEETusername')
         .textContent.toLowerCase()
       const tweetTxt = tweetContainer
-        .querySelector(".TWEETmain")
+        .querySelector('.TWEETmain')
         .textContent.toLowerCase()
 
       if (
@@ -546,14 +552,14 @@ function searchWithinTweets() {
         tweetTxt.includes(searchTxt)
       ) {
       } else {
-        tweetContainer.style.display = "none"
+        tweetContainer.style.display = 'none'
       }
     })
   }
 }
 
 function deleteCategory() {
-  const id = document.querySelector(".deleteCategory").getAttribute("cat-id")
+  const id = document.querySelector('.deleteCategory').getAttribute('cat-id')
 
   const promptDelete = prompt(`Type '${id}' to Delete Category.`)
 
@@ -561,13 +567,13 @@ function deleteCategory() {
     updateDoc(docRef, {
       [id]: deleteField(),
     }).then(() => {
-      window.location.href = "../categories/"
+      window.location.href = '../categories/'
     })
   }
 }
 
 function addTweet() {
-  document.querySelectorAll(".promptTweets").forEach((el) => el.remove())
+  document.querySelectorAll('.promptTweets').forEach(el => el.remove())
 
   DOMrightPrompt.innerHTML = `
     <div class="prompt promptTweets">
@@ -583,16 +589,16 @@ function addTweet() {
     </div>
     `
 
-  document.getElementById("addTweetBox").focus()
-  document.querySelector(".closeTweet").addEventListener("click", () => {
-    document.querySelectorAll(".promptTweets").forEach((el) => el.remove())
+  document.getElementById('addTweetBox').focus()
+  document.querySelector('.closeTweet').addEventListener('click', () => {
+    document.querySelectorAll('.promptTweets').forEach(el => el.remove())
   })
   // document.querySelector('.addTweet').addEventListener('click', addTweet)
-  document.getElementById("addTweetBtn").addEventListener("click", () => {
-    if (document.getElementById("addTweetBox").value) {
-      const tweetID = document.getElementById("addTweetBox").value
+  document.getElementById('addTweetBtn').addEventListener('click', () => {
+    if (document.getElementById('addTweetBox').value) {
+      const tweetID = document.getElementById('addTweetBox').value
 
-      document.querySelectorAll(".promptTweets").forEach((el) => el.remove())
+      document.querySelectorAll('.promptTweets').forEach(el => el.remove())
       const validatedID = validateTweetID(tweetID)
       if (validatedID !== -1) {
         currentTweets.push(validatedID)
@@ -608,7 +614,7 @@ function addTweet() {
           loadTweets(category)
         })
       } else {
-        alert("Wrong format of Link/ID")
+        alert('Wrong format of Link/ID')
       }
     }
   })
@@ -617,10 +623,10 @@ function addTweet() {
 function validateTweetID(value) {
   if (
     validURL(value) &&
-    value.includes("twitter.com") &&
-    value.includes("status/")
+    value.includes('twitter.com') &&
+    value.includes('status/')
   ) {
-    let index = value.indexOf("status/")
+    let index = value.indexOf('status/')
     index += 7
     return value.substring(index, index + 19)
   } else if (!isNaN(value) && value.length === 19) {
@@ -631,13 +637,13 @@ function validateTweetID(value) {
 }
 function validURL(str) {
   var pattern = new RegExp(
-    "^(https?:\\/\\/)?" + // protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-      "(\\#[-a-z\\d_]*)?$",
-    "i"
+    '^(https?:\\/\\/)?' + // protocol
+      '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+      '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+      '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+      '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+      '(\\#[-a-z\\d_]*)?$',
+    'i'
   ) // fragment locator
   return !!pattern.test(str)
 }
