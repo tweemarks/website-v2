@@ -444,15 +444,10 @@ async function shareSelectedTweets() {
     }
   })
 
-  shareableText = `Tweet Links: `
-  selectedTweetURLs.forEach(tweetLink => {
-    shareableText += '\n'
-    shareableText += tweetLink
-  })
-
   let shareText = {
     title: category,
-    text: new TextEncoder().encode(shareableText),
+    text: `Tweet's links`,
+    url: selectedTweetURLs,
   }
 
   try {
