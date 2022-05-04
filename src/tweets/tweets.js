@@ -452,7 +452,7 @@ async function shareSelectedTweets() {
 
   let shareText = {
     title: category,
-    text: shareableText,
+    text: new TextEncoder().encode(shareableText),
   }
 
   try {
